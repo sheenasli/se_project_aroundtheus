@@ -16,4 +16,5 @@ This is the third project of the Web Development program at Practicum. It was cr
 
 - Continue to add interactive features with Java
   
+  [Around the U.S. link](https://sheenasli.github.io/se_project_aroundtheus/)
 
