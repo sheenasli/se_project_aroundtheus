@@ -51,6 +51,11 @@
 
 .modal__form {
   max-width: 358px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 input {
@@ -70,4 +75,37 @@ input {
   border: none;
   border-radius: 2px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 755px) {
+  .modal__close {
+    width: 26px;
+    height: 26px;
+    bottom: calc(100% + 25px);
+    left: calc(90% + -8px);
+  }
+  .modal__form {
+    max-width: 358px;
+  }
+  .modal__container {
+    max-width: 282px;
+    padding: 25px 22px;
+  }
+  .modal__heading {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    margin: 0 0 45px;
+  }
+  .modal__form {
+    max-width: 238px;
+  }
+  .modal__button {
+    width: 238px;
+    height: 46px;
+    margin-top: 45px;
+  }
 }
