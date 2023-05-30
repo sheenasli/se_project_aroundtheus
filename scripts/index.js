@@ -27,7 +27,6 @@ const initialCards = [
 
 console.log(initialCards);
 
-
 /*--------------------------------------------------*/
 /*                      Elements                    */
 /*--------------------------------------------------*/
@@ -35,13 +34,12 @@ console.log(initialCards);
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 
-profileEditButton.addEventListener("click", function() => {
-  profileEditModal.classList.add('modal__opened')
+profileEditButton.addEventListener("click", function () {
+  profileEditModal.classList.add("modal__opened");
 });
-
 
 const modalCloseButton = document.querySelector("#modal-close-button");
 
-modalCloseButton.addEventListener("click", function() => {
-  profileEditModal.classList.remove('modal__opened')
+modalCloseButton.addEventListener("click", function () {
+  profileEditModal.classList.remove("modal__opened");
 });
