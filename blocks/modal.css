@@ -11,7 +11,7 @@
 }
 
 .modal__opened {
-  /*  display: flex; */
+  display: flex;
 }
 
 .modal__container {
@@ -26,7 +26,7 @@
 }
 
 .modal__heading {
-  font-family: "Inter";
+  font-family: "Inter", Arial, sans-serif;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
@@ -51,19 +51,23 @@
 
 .modal__form {
   max-width: 358px;
-  font-family: "Inter";
+  font-family: "Inter", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
 }
 
-input {
+.modal__input {
   border: none;
   border-bottom: 1px solid #a9a9a9;
   width: 100%;
   margin-top: 30px;
   padding-bottom: 13px;
+}
+
+.modal__input::placeholder {
+  color: #a9a9a9;
 }
 
 .modal__button {
