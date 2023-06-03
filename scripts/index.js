@@ -41,6 +41,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-decription-input"
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+/*I changed above to recommended as I want to improve the practice but it deleted the cards from browser view when changed */
 const cardListEl = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -50,7 +51,7 @@ const cardTemplate =
 /*--------------------------------------------------*/
 
 function closePopup() {
-  profileEditModal.classList.remove("modal__opened");
+  profileEditModal.classList.remove("modal_opened");
 }
 
 function getCardElement(cardData) {
@@ -82,7 +83,7 @@ function handleProfileEditSubmit(e) {
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal__opened");
+  profileEditModal.classList.add("modal_opened");
 });
 
 profileEditCloseButton.addEventListener("click", closePopup);
