@@ -47,3 +47,12 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.card__like-button_active {
+  background: url(../images/active\ like\ button.svg) center no-repeat;
+  width: 21px;
+  min-width: 21px;
+  height: 18px;
+  border: none;
+  cursor: pointer;
+}
