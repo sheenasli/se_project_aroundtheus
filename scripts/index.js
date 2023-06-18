@@ -52,7 +52,9 @@ const cardTitleInput = addCardFormElement.querySelector(
   ".modal__input_type_title"
 );
 const cardUrlInput = addCardFormElement.querySelector(".modal__input_type_url");
-
+const imageModal = document.querySelector("#image-popup");
+const modalImageEl = imageModal.querySelector(".modal__image");
+const modalCaption = imageModal.querySelector(".modal__image_caption");
 /*--------------------------------------------------*/
 /*                      Functions                   */
 /*--------------------------------------------------*/
@@ -74,8 +76,11 @@ function generateCard(card) {
   const cardElement = cardTemplate.cloneNode(true);
 
   cardElement.querySelector(".card__title").textContent = card.name;
-  cardElement.querySelector(".card__image").style.backgroundImage =
-    "url(${card.link})";
+  const imageEl = cardElement.querySelector(".card__image");
+  imageEl.style.backgroundImage = "url(${card.link})";
+  imageEl.addEventListener("click", function () {
+    toggleModalWindow(previewImageModalWindow);
+  });
 
   return cardElement;
 }
@@ -107,12 +112,23 @@ function getCardElement(cardData) {
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
-
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
+  });
+
+  const imageModal = document.querySelector("#image-popup");
+  const modalImageEl = imageModal.querySelector(".modal__image");
+  const modalCaption = imageModal.querySelector(".modal__image_caption");
+
+  modalImageEl.addEventListener("click", () => {
+    modalImageEl.setAttribute("src", cardImageEl.getattribute("src"));
+    imageModal.alt = cardData.name;
+    modalCaption.textContent = cardData.name;
+    openPopup(imageModal);
+  });
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
   });
 
   cardImageEl.src = cardData.link;
