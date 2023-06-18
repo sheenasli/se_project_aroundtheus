@@ -94,7 +94,7 @@
   object-fit: cover;
 }
 
-.modal__image_caption {
+.modal__caption {
   font-family: "Inter", Arial, sans-serif;
   margin: 0;
   font-style: normal;
@@ -154,7 +154,7 @@
     width: 240px;
     height: 299px;
   }
-  .modal__image_caption {
+  .modal__caption {
     left: 20px;
     top: calc(100% - 10px);
   }

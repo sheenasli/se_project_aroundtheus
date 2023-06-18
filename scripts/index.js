@@ -55,7 +55,7 @@ const cardTitleInput = addCardFormElement.querySelector(
 );
 const cardUrlInput = addCardFormElement.querySelector(".modal__input_type_url");
 const modalImageEl = imageModal.querySelector(".modal__image");
-const modalCaption = imageModal.querySelector(".modal__image_caption");
+const modalCaption = imageModal.querySelector(".modal__caption");
 /*--------------------------------------------------*/
 /*                      Functions                   */
 /*--------------------------------------------------*/
@@ -119,7 +119,7 @@ function getCardElement(cardData) {
 
   const imageModal = document.querySelector("#image-popup");
   const modalImageEl = imageModal.querySelector(".modal__image");
-  const modalCaption = imageModal.querySelector(".modal__image_caption");
+  const modalCaption = imageModal.querySelector(".modal__caption");
 
   cardImageEl.addEventListener("click", () => {
     modalImageEl.src = cardData.link;
