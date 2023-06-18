@@ -97,6 +97,10 @@
 .modal__image_caption {
   font-family: "Inter", Arial, sans-serif;
   margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.5px;
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
@@ -144,5 +148,22 @@
     width: 238px;
     height: 46px;
     margin-top: 45px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+  .modal__image {
+    width: 240px;
+    height: 299px;
+  }
+  .modal__image_caption {
+    left: 20px;
+    top: calc(100% - 10px);
+  }
+  .modal__close {
+    width: 30px;
+    height: 30px;
+    bottom: calc(100% + -20px);
+    left: calc(90% + 10px);
   }
 }

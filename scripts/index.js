@@ -35,8 +35,10 @@ const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardFormElement = addCardModal.querySelector(".modal__form");
+const imageModal = document.querySelector("#image-popup");
 const profileEditCloseButton = profileEditModal.querySelector(".modal__close");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
+const imageModalCloseButton = imageModal.querySelector(".modal__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -52,7 +54,6 @@ const cardTitleInput = addCardFormElement.querySelector(
   ".modal__input_type_title"
 );
 const cardUrlInput = addCardFormElement.querySelector(".modal__input_type_url");
-const imageModal = document.querySelector("#image-popup");
 const modalImageEl = imageModal.querySelector(".modal__image");
 const modalCaption = imageModal.querySelector(".modal__image_caption");
 /*--------------------------------------------------*/
@@ -120,8 +121,8 @@ function getCardElement(cardData) {
   const modalImageEl = imageModal.querySelector(".modal__image");
   const modalCaption = imageModal.querySelector(".modal__image_caption");
 
-  modalImageEl.addEventListener("click", () => {
-    modalImageEl.setAttribute("src", cardImageEl.getattribute("src"));
+  cardImageEl.addEventListener("click", () => {
+    modalImageEl.src = cardData.link;
     imageModal.alt = cardData.name;
     modalCaption.textContent = cardData.name;
     openPopup(imageModal);
@@ -158,6 +159,8 @@ addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
 addCardModalCloseButton.addEventListener("click", () =>
   closePopup(addCardModal)
 );
+
+imageModalCloseButton.addEventListener("click", () => closePopup(imageModal));
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
