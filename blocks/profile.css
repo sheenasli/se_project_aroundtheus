@@ -21,10 +21,11 @@
   border: 1px solid white;
   align-self: center;
   cursor: pointer;
+  transition: opacity 0.5s;
 }
 
 .profile__edit-button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .profile__add-button {
@@ -35,10 +36,11 @@
   border: 2px solid white;
   border-radius: 2px;
   cursor: pointer;
+  transition: opacity 0.5s;
 }
 
 .profile__add-button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .profile__title {
