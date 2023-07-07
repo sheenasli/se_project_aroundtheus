@@ -57,21 +57,43 @@
         ></button>
         <h3 class="modal__heading">Edit Profile</h3>
         <form class="modal__form">
-          <input
-            class="modal__input"
-            type="text"
-            name="title"
-            placeholder="Name"
-            id="profile-title-input"
-          />
-          <input
-            class="modal__input"
-            type="text"
-            name="description"
-            placeholder="Description"
-            id="profile-decription-input"
-          />
-          <button class="modal__button" type="submit" aria-label="save">
+          <label class="modal__label">
+            <input
+              class="modal__input"
+              type="text"
+              name="title"
+              placeholder="Name"
+              id="profile-title-input"
+              minlength="2"
+              maxlength="40"
+              required
+            />
+            <span class="modal__error" id="profile-title-input-error"
+              >The "Name" field must contain between 2 and 40 characters.</span
+            >
+          </label>
+          <label class="modal__label">
+            <input
+              class="modal__input"
+              type="text"
+              name="description"
+              placeholder="Description"
+              id="profile-decription-input"
+              minlength="2"
+              maxlength="200"
+              required
+            />
+            <span class="modal__error" id="profile-decription-input-error"
+              >The "About" field must contain between 2 and 200
+              characters.</span
+            >
+          </label>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            aria-label="save"
+            disabled
+          >
             Save
           </button>
         </form>
@@ -84,21 +106,40 @@
         <button class="modal__close" type="button"></button>
         <h3 class="modal__heading">New Place</h3>
         <form class="modal__form" id="add-card-form">
-          <input
-            class="modal__input modal__input_type_title"
-            type="text"
-            name="title"
-            placeholder="Title"
-            id="place-title-input"
-          />
-          <input
-            class="modal__input modal__input_type_url"
-            type="url"
-            name="url"
-            placeholder="Image URL"
-            id="profile-image-input"
-          />
-          <button class="modal__button" type="submit" aria-label="save">
+          <label class="modal__label">
+            <input
+              class="modal__input modal__input_type_title"
+              type="text"
+              name="title"
+              placeholder="Title"
+              id="place-title-input"
+              minlength="1"
+              maxlength="30"
+              required
+            />
+            <span class="modal__error" id="place-title-input-error"
+              >The "Title" field must contain between 1 and 30 characters.</span
+            >
+          </label>
+          <label class="modal__label">
+            <input
+              class="modal__input modal__input_type_url"
+              type="url"
+              name="url"
+              placeholder="Image URL"
+              id="place-url-input"
+              required
+            />
+            <span class="modal__error" id="place-url-input-error"
+              >The "Image URL" field must contain a URL.</span
+            >
+          </label>
+          <button
+            class="modal__button modal__button_disabled"
+            type="submit"
+            aria-label="save"
+            disabled
+          >
             Create
           </button>
         </form>
@@ -132,7 +173,7 @@
         </div>
       </li>
     </template>
-
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>

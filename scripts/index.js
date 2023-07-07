@@ -61,10 +61,14 @@ const modalCaption = imageModal.querySelector(".modal__caption");
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
+  document.addEventListener("keydown", handleEscape);
+  document.addEventListener("click", handleOverlayClick);
 }
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
+  document.removeEventListener("keydown", handleEscape);
+  document.removeEventListener("click", handleOverlayClick);
 }
 
 function renderCard(cardData, wrapper) {
@@ -157,3 +161,22 @@ imageModalCloseButton.addEventListener("click", () => closePopup(imageModal));
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
 addCardFormElement.addEventListener("submit", handleAddCardSubmit);
+
+//close modal with esc key and mouse-click on background
+function handleEscape(e) {
+  if (e.key === "Escape") {
+    const modal = document.querySelector(".modal_opened");
+    closePopup(modal);
+  }
+}
+
+modal.forEach((modalElement) => {
+  modalElement.addEventListener("click", (e) => {
+    if (
+      e.target.classList.contains("modal") ||
+      e.target.classList.contains("modal__close")
+    ) {
+      closeModal(modalElement);
+    }
+  });
+});
