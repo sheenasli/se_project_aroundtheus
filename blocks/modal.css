@@ -144,14 +144,15 @@
   cursor: pointer;
 }
 
-.modal__button:hover {
-  opacity: 0.5;
+.modal__button:hover:not(:disabled) {
+  opacity: 0.8;
 }
 
 .modal__button:disabled {
   background: transparent url(../images/blank\ submit\ button\ disabled.svg)
     center no-repeat;
   color: #a9a9a9;
+  cursor: default;
 }
 
 @media screen and (max-width: 755px) {

@@ -62,13 +62,13 @@ const modalCaption = imageModal.querySelector(".modal__caption");
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", handleEscape);
-  document.removeEventListener("click", handleOverlayClick);
+  document.removeEventListener("mousedown", handleOverlayClick);
 }
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", handleEscape);
-  document.addEventListener("click", handleOverlayClick);
+  document.addEventListener("mousedown", handleOverlayClick);
 }
 
 function renderCard(cardData, wrapper) {
@@ -103,6 +103,7 @@ function handleAddCardSubmit(e) {
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardListEl);
   addCardFormElement.reset();
+  toggleButtonState(inputEls, submitButton, options);
   closePopup(addCardModal);
 }
 
