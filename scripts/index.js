@@ -61,14 +61,14 @@ const modalCaption = imageModal.querySelector(".modal__caption");
 
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
-  document.addEventListener("keydown", handleEscape);
-  document.addEventListener("click", handleOverlayClick);
+  document.removeEventListener("keydown", handleEscape);
+  document.removeEventListener("click", handleOverlayClick);
 }
 
 function openPopup(modal) {
   modal.classList.add("modal_opened");
-  document.removeEventListener("keydown", handleEscape);
-  document.removeEventListener("click", handleOverlayClick);
+  document.addEventListener("keydown", handleEscape);
+  document.addEventListener("click", handleOverlayClick);
 }
 
 function renderCard(cardData, wrapper) {
@@ -170,13 +170,13 @@ function handleEscape(e) {
   }
 }
 
-modal.forEach((modalElement) => {
+[profileEditModal, addCardModal, imageModal].forEach((modalElement) => {
   modalElement.addEventListener("click", (e) => {
     if (
       e.target.classList.contains("modal") ||
       e.target.classList.contains("modal__close")
     ) {
-      closeModal(modalElement);
+      closePopup(modalElement);
     }
   });
 });
