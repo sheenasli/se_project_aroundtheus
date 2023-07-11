@@ -68,7 +68,6 @@ function closePopup(modal) {
 function openPopup(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", handleEscape);
-  document.addEventListener("mousedown", handleOverlayClick);
 }
 
 function renderCard(cardData, wrapper) {
@@ -103,7 +102,12 @@ function handleAddCardSubmit(e) {
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardListEl);
   addCardFormElement.reset();
-  toggleButtonState(inputEls, submitButton, options);
+  //toggleButtonState(inputEls, submitButton, options);//
+  const cardFormSubmitButton = toggleButtonState(
+    [cardTitleInput, cardUrlInput],
+    cardFormSubmitButton,
+    options
+  );
   closePopup(addCardModal);
 }
 
