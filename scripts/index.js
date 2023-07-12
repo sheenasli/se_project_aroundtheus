@@ -62,7 +62,6 @@ const modalCaption = imageModal.querySelector(".modal__caption");
 function closePopup(modal) {
   modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", handleEscape);
-  document.removeEventListener("mousedown", handleOverlayClick);
 }
 
 function openPopup(modal) {
@@ -103,7 +102,9 @@ function handleAddCardSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardFormElement.reset();
   //toggleButtonState(inputEls, submitButton, options);//
-  const cardFormSubmitButton = toggleButtonState(
+  const cardFormSubmitButton =
+    addCardFormElement.querySelector(".modal__button");
+  toggleButtonState(
     [cardTitleInput, cardUrlInput],
     cardFormSubmitButton,
     options
