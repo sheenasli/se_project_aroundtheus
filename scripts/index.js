@@ -107,7 +107,7 @@ function handleAddCardSubmit(e) {
   toggleButtonState(
     [cardTitleInput, cardUrlInput],
     cardFormSubmitButton,
-    options
+    config
   );
   closePopup(addCardModal);
 }
