@@ -23,7 +23,7 @@ class Card {
 
   _getTemplate() {
     const cardElement = document
-      .queryselector(this._cardSelector)
+      .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
 
@@ -35,7 +35,7 @@ class Card {
     this._cardElement.querySelector(
       ".card__image"
     ).style.backgroundImage = `url(${this._link})`;
-    this._cardElement.querySelector(".card_title").textContent = this._name;
+    this._cardElement.querySelector(".card__title").textContent = this._name;
     this._setEventListeners();
   }
 
