@@ -1,5 +1,11 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import {
+  handleEscape,
+  closePopup,
+  openPopup,
+  handlePopupClose,
+} from "../utils/utils.js";
 
 const initialCards = [
   {
@@ -72,16 +78,6 @@ const cardSelector = "#card-template";
 /*                      Functions                   */
 /*--------------------------------------------------*/
 
-function closePopup(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscape);
-}
-
-function openPopup(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscape);
-}
-
 function renderCard(cardData, wrapper) {
   const card = new Card(cardData, cardSelector);
   wrapper.prepend(card.getView());
@@ -107,6 +103,31 @@ function handleProfileEditSubmit(e) {
   profileDescription.textContent = profileDescriptionInput.value;
   closePopup(profileEditModal);
 }
+
+profileEditForm.addEventListener("submit", handleProfileEditSubmit);
+profileEditButton.addEventListener("click", openEditProfileModal);
+
+profileEditCloseButton.addEventListener("click", () =>
+  closePopup(profileEditModal)
+);
+
+//add new card button
+addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
+addCardModalCloseButton.addEventListener("click", () =>
+  closePopup(addCardModal)
+);
+
+imageModalCloseButton.addEventListener("click", () => closePopup(imageModal));
+
+initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
+
+addCardFormElement.addEventListener("submit", handleAddCardSubmit);
+
+//close modal with esc key and mouse-click on background
+
+[profileEditModal, addCardModal, imageModal].forEach((modalElement) => {
+  modalElement.addEventListener("click", handlePopupClose);
+});
 
 function handleAddCardSubmit(e) {
   e.preventDefault();
@@ -137,8 +158,11 @@ const validationSettings = {
 const editFormElement = profileEditModal.querySelector(".modal__form");
 const addFormElement = addCardModal.querySelector(".modal__form");
 
-const editFormValidator = new FormValidator(validationSettings, editForm);
-const addFormValidator = new FormValidator(validationSettings, addForm);
+const editFormValidator = new FormValidator(
+  validationSettings,
+  profileEditForm
+);
+const addFormValidator = new FormValidator(validationSettings, addCardModal);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
@@ -179,44 +203,6 @@ addFormValidator.enableValidation();
 /*--------------------------------------------------*/
 /*                 Event Listeners                  */
 /*--------------------------------------------------*/
-
-profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-profileEditButton.addEventListener("click", openEditProfileModal);
-
-profileEditCloseButton.addEventListener("click", () =>
-  closePopup(profileEditModal)
-);
-
-//add new card button
-addNewCardButton.addEventListener("click", () => openPopup(addCardModal));
-addCardModalCloseButton.addEventListener("click", () =>
-  closePopup(addCardModal)
-);
-
-imageModalCloseButton.addEventListener("click", () => closePopup(imageModal));
-
-initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
-
-addCardFormElement.addEventListener("submit", handleAddCardSubmit);
-
-//close modal with esc key and mouse-click on background
-function handleEscape(e) {
-  if (e.key === "Escape") {
-    const modal = document.querySelector(".modal_opened");
-    closePopup(modal);
-  }
-}
-
-[profileEditModal, addCardModal, imageModal].forEach((modalElement) => {
-  modalElement.addEventListener("click", (e) => {
-    if (
-      e.target.classList.contains("modal") ||
-      e.target.classList.contains("modal__close")
-    ) {
-      closePopup(modalElement);
-    }
-  });
-});
 
 // enabling validation by calling enableValidation()
 // pass all the settings on call
@@ -280,13 +266,13 @@ function enableValidation(options) {
   });
 }
 
-// const config = {
-//   formSelector: ".modal__form",
-//   inputSelector: ".modal__input",
-//   submitButtonSelector: ".modal__button",
-//   inactiveButtonClass: "modal__button_disabled",
-//   inputErrorClass: "modal__input_type_error",
-//   errorClass: "modal__error_visible",
-// };
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
 
 enableValidation(config);

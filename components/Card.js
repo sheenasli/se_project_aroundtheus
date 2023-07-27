@@ -1,18 +1,8 @@
+import { handleEscape, closePopup, openPopup } from "../utils/utils.js";
+
 const imageModal = document.querySelector("#image-popup");
 const modalImageEl = imageModal.querySelector(".modal__image");
 const modalCaption = imageModal.querySelector(".modal__caption");
-
-const closePopup = (modal) => {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscape);
-};
-
-const handleEscape = (e) => {
-  if (e.key === "Escape") {
-    const modal = document.querySelector(".modal_opened");
-    closePopup(modal);
-  }
-};
 
 class Card {
   constructor({ name, link }, cardSelector) {
@@ -37,6 +27,7 @@ class Card {
     ).style.backgroundImage = `url(${this._link})`;
     this._cardElement.querySelector(".card__title").textContent = this._name;
     this._setEventListeners();
+    return this._cardElement;
   }
 
   _setEventListeners() {
@@ -67,11 +58,10 @@ class Card {
     this._cardElement = null;
   }
 
-  //fix this
   _handlePreviewPicture(cardData) {
-    modalImageEl.src = cardData.link;
-    imageModal.alt = cardData.name;
-    modalCaption.textContent = cardData.name;
+    modalImageEl.src = this._link;
+    imageModal.alt = this._name;
+    modalCaption.textContent = this._name;
     openPopup(imageModal);
   }
 }
