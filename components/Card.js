@@ -3,6 +3,7 @@ import { handleEscape, closePopup, openPopup } from "../utils/utils.js";
 const imageModal = document.querySelector("#image-popup");
 const modalImageEl = imageModal.querySelector(".modal__image");
 const modalCaption = imageModal.querySelector(".modal__caption");
+const cardCaption = document.querySelector(".card__title");
 
 class Card {
   constructor({ name, link }, cardSelector) {
@@ -22,19 +23,16 @@ class Card {
 
   getView() {
     this._cardElement = this._getTemplate();
-    this._cardElement.querySelector(
-      ".card__image"
-    ).style.backgroundImage = `url(${this._link})`;
-    this._cardElement.querySelector(".card__title").textContent = this._name;
+    this._cardElement.querySelector(".card__image").src = `url(${this._link})`;
+    this._likeButton = this._element.querySelector(".card__like-button");
+    this.cardCaption.textContent = this._name;
     this._setEventListeners();
     return this._cardElement;
   }
 
   _setEventListeners() {
     //".card__like-button"
-    this._cardElement
-      .querySelector(".card__like-button")
-      .addEventListener("click", () => this._handleLikeIcon());
+    this._likeButton.addEventListener("click", () => this._handleLikeIcon());
 
     //".card__delete-button"
     this._cardElement

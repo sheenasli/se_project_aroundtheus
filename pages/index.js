@@ -1,3 +1,4 @@
+import { initialCards, validationSettings } from "../components/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {
@@ -7,40 +8,10 @@ import {
   handlePopupClose,
 } from "../utils/utils.js";
 
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
-
 const cardData = {
   name: "Yosemite Valley",
   link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
 };
-
-const card = new Card(cardData, "#card-template");
-card.getView();
 
 /*--------------------------------------------------*/
 /*                      Elements                    */
@@ -146,15 +117,6 @@ function handleAddCardSubmit(e) {
   closePopup(addCardModal);
 }
 
-const validationSettings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
-
 const editFormElement = profileEditModal.querySelector(".modal__form");
 const addFormElement = addCardModal.querySelector(".modal__form");
 
@@ -166,113 +128,3 @@ const addFormValidator = new FormValidator(validationSettings, addCardModal);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
-// function getCardElement(cardData) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardImageEl = cardElement.querySelector(".card__image");
-//   const cardTitleEl = cardElement.querySelector(".card__title");
-//   const likeButton = cardElement.querySelector(".card__like-button");
-//   const deleteButton = cardElement.querySelector(".card__delete-button");
-
-//deleteButton.addEventListener("click", () => {
-//  cardElement.remove();
-//});
-
-// const imageModal = document.querySelector("#image-popup");
-// const modalImageEl = imageModal.querySelector(".modal__image");
-// const modalCaption = imageModal.querySelector(".modal__caption");
-
-// cardImageEl.addEventListener("click", () => {
-//   modalImageEl.src = cardData.link;
-//   imageModal.alt = cardData.name;
-//   modalCaption.textContent = cardData.name;
-//   openPopup(imageModal);
-// });
-
-//likeButton.addEventListener("click", () => {
-//  likeButton.classList.toggle("card__like-button_active");
-//});
-
-// cardImageEl.src = cardData.link;
-// cardImageEl.alt = cardData.name;
-// cardTitleEl.textContent = cardData.name;
-
-//   return cardElement;
-// }
-
-/*--------------------------------------------------*/
-/*                 Event Listeners                  */
-/*--------------------------------------------------*/
-
-// enabling validation by calling enableValidation()
-// pass all the settings on call
-
-function showInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-  // const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-  // inputEl.classList.add(inputErrorClass);
-  // errorMessageEl.textContent = inputEl.validationMessage;
-  // errorMessageEl.classList.add(errorClass);
-}
-
-// function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-//   const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-//   inputEl.classList.remove(inputErrorClass);
-//   errorMessageEl.textContent = "";
-//   errorMessageEl.classList.remove(errorClass);
-// }
-
-// function checkInputValidity(formEl, inputEl, options) {
-//   if (!inputEl.validity.valid) {
-//     return showInputError(formEl, inputEl, options);
-//   }
-//   hideInputError(formEl, inputEl, options);
-// }
-
-// function hasInvalidInput(inputList) {
-//   return !inputList.every((inputEl) => inputEl.validity.valid);
-// }
-
-// function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
-//   if (hasInvalidInput(inputEls)) {
-//     submitButton.classList.add(inactiveButtonClass);
-//     submitButton.disabled = true;
-//     return;
-//   }
-
-//   submitButton.classList.remove(inactiveButtonClass);
-//   submitButton.disabled = false;
-// }
-
-// function setEventListeners(formEl, options) {
-//   const { inputSelector } = options;
-// const inputEls = Array.from(formEl.querySelectorAll(inputSelector));
-// const submitButton = formEl.querySelector(options.submitButtonSelector);
-
-// inputEls.forEach((inputEl) => {
-//   inputEl.addEventListener("input", (e) => {
-//     checkInputValidity(formEl, inputEl, options);
-//     toggleButtonState(inputEls, submitButton, options);
-//   });
-// });
-// }
-
-function enableValidation(options) {
-  const formEls = Array.from(document.querySelectorAll(options.formSelector));
-  formEls.forEach((formEl) => {
-    // formEl.addEventListener("submit", (e) => {
-    //   e.preventDefault();
-    // });
-    // setEventListeners(formEl, options);
-  });
-}
-
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
-
-enableValidation(config);

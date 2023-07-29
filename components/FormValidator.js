@@ -9,7 +9,7 @@ class FormValidator {
     this._form = formElement;
   }
 
-  _showInputError(inputEl, errorMessage) {
+  _showInputError(this._form) {
     const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
     inputEl.classList.add(this._inputErrorClass);
     errorMessageEl.textContent = inputEl.validationMessage;
@@ -17,34 +17,31 @@ class FormValidator {
   }
 
   _hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-    ``;
     const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
     inputEl.classList.remove(inputErrorClass);
     errorMessageEl.textContent = "";
     errorMessageEl.classList.remove(errorClass);
   }
 
-  _hasInvalidInput(inputList) {
-    return !inputList.every((inputEl) => inputEl.validity.valid);
+  _hasInvalidInput() {
+    return !this._inputList.every((inputEl) => this._inputEl.validity.valid);
   }
-  //what to do with parameters and elements?
-  _toggleButtonState(inputEls, submitButton) {
-    if (this._hasInvalidInput(inputEls)) {
-      submitButton.classList.add(this._inactiveButtonClass);
-      submitButton.disabled = true;
+
+  toggleButtonState() {
+    if (this._hasInvalidInput(this._inputEls)) {
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = true;
       return;
     }
-    submitButton.classList.remove(this._inactiveButtonClass);
-    submitButton.disabled = false;
+    this._submitButton.classList.remove(this._inactiveButtonClass);
+    this._submitButton.disabled = false;
   }
 
   _checkInputValidity(formEl, inputEl) {
     if (!formEl.validity.valid) {
-      return this._showInputError(formEl, "dont do this");
+      return this._showInputError();
     }
   }
-
-  _hideInputError(formEl, inputEl, options) {}
 
   _setEventListeners() {
     this._inputEls = Array.from(
@@ -55,7 +52,7 @@ class FormValidator {
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
         this._checkInputValidity(inputEl);
-        this._toggleButtonState(this._inputEls, this._submitButton);
+        this.toggleButtonState();
       });
     });
   }
