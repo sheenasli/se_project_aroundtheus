@@ -9,18 +9,18 @@ class FormValidator {
     this._form = formElement;
   }
 
-  _showInputError(this._form) {
+  _showInputError(inputEl) {
     const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
     inputEl.classList.add(this._inputErrorClass);
     errorMessageEl.textContent = inputEl.validationMessage;
     errorMessageEl.classList.add(this._errorClass);
   }
 
-  _hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
-    const errorMessageEl = formEl.querySelector(`#${inputEl.id}-error`);
-    inputEl.classList.remove(inputErrorClass);
+  _hideInputError(inputEl) {
+    const errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
+    inputEl.classList.remove(this._inputErrorClass);
     errorMessageEl.textContent = "";
-    errorMessageEl.classList.remove(errorClass);
+    errorMessageEl.classList.remove(this._errorClass);
   }
 
   _hasInvalidInput() {
@@ -37,8 +37,8 @@ class FormValidator {
     this._submitButton.disabled = false;
   }
 
-  _checkInputValidity(formEl, inputEl) {
-    if (!formEl.validity.valid) {
+  _checkInputValidity(inputEl) {
+    if (!this._form.validity.valid) {
       return this._showInputError();
     }
   }

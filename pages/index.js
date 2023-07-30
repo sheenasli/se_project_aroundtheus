@@ -1,7 +1,8 @@
-import { initialCards, validationSettings } from "../components/constants.js";
+import { validationSettings } from "../components/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {
+  initialCards,
   handleEscape,
   closePopup,
   openPopup,
@@ -109,7 +110,7 @@ function handleAddCardSubmit(e) {
   //toggleButtonState(inputEls, submitButton, options);//
   const cardFormSubmitButton =
     addCardFormElement.querySelector(".modal__button");
-  toggleButtonState(
+  addFormValidator.toggleButtonState(
     [cardTitleInput, cardUrlInput],
     cardFormSubmitButton,
     config
