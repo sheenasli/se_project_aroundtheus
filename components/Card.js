@@ -23,9 +23,10 @@ class Card {
 
   getView() {
     this._cardElement = this._getTemplate();
-    this._cardElement.querySelector(".card__image").src = `url(${this._link})`;
-    this._likeButton = this._element.querySelector(".card__like-button");
-    this.cardCaption.textContent = this._name;
+    this._cardElement.querySelector(".card__image").src = this._link;
+    this._cardCaption = this._cardElement.querySelector(".card__title");
+    this._likeButton = this._cardElement.querySelector(".card__like-button");
+    this._cardCaption.textContent = this._name;
     this._setEventListeners();
     return this._cardElement;
   }
