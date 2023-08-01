@@ -1,4 +1,3 @@
-import { validationSettings } from "../components/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {
@@ -7,6 +6,7 @@ import {
   closePopup,
   openPopup,
   handlePopupClose,
+  validationSettings,
 } from "../utils/utils.js";
 
 const cardData = {
@@ -110,11 +110,7 @@ function handleAddCardSubmit(e) {
   //toggleButtonState(inputEls, submitButton, options);//
   const cardFormSubmitButton =
     addCardFormElement.querySelector(".modal__button");
-  addFormValidator.toggleButtonState(
-    [cardTitleInput, cardUrlInput],
-    cardFormSubmitButton,
-    config
-  );
+  addFormValidator.toggleButtonState();
   closePopup(addCardModal);
 }
 

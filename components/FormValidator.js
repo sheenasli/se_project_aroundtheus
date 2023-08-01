@@ -37,8 +37,9 @@ class FormValidator {
     this._submitButton.disabled = false;
   }
 
+  //inputEl is causing js console error//
   _checkInputValidity(inputEl) {
-    if (!this._form.validity.valid) {
+    if (!this.inputEl.validity.valid) {
       return this._showInputError();
     }
   }
