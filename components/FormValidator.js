@@ -24,7 +24,7 @@ class FormValidator {
   }
 
   _hasInvalidInput() {
-    return !this._inputList.every((inputEl) => this._inputEl.validity.valid);
+    return !this._inputEls.every((inputEl) => inputEl.validity.valid);
   }
 
   toggleButtonState() {
@@ -39,9 +39,10 @@ class FormValidator {
 
   //inputEl is causing js console error//
   _checkInputValidity(inputEl) {
-    if (!this.inputEl.validity.valid) {
-      return this._showInputError();
+    if (!inputEl.validity.valid) {
+      return this._showInputError(inputEl);
     }
+    return this._hideInputError(inputEl);
   }
 
   _setEventListeners() {

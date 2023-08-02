@@ -1,13 +1,13 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import {
-  initialCards,
   handleEscape,
   closePopup,
   openPopup,
   handlePopupClose,
   validationSettings,
 } from "../utils/utils.js";
+import { initialCards } from "../utils/constants.js";
 
 const cardData = {
   name: "Yosemite Valley",
