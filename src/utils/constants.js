@@ -1,3 +1,5 @@
+export const ESC_KEYCODE = 27;
+
 export const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,3 +26,9 @@ export const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+export const selectors = {
+  cardSection: ".cards__list",
+  cardTemplate: "#card-template",
+  previewPopup: "#image-popup",
+};

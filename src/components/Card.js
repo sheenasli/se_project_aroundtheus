@@ -5,11 +5,13 @@ const modalImageEl = imageModal.querySelector(".modal__image");
 const modalCaption = imageModal.querySelector(".modal__caption");
 const cardCaption = document.querySelector(".card__title");
 
-class Card {
-  constructor({ name, link }, cardSelector) {
-    this._name = name;
-    this._link = link;
+export default class Card {
+  constructor({ data, handleImageClick }, cardSelector) {
+    this._name = data.name;
+    this._link = data.link;
+
     this._cardSelector = cardSelector;
+    this._handleImageClick = handleImageClick;
   }
 
   _getTemplate() {
@@ -43,7 +45,9 @@ class Card {
     //"#image-popup"
     this._cardElement
       .querySelector(".card__image")
-      .addEventListener("click", () => this._handlePreviewPicture());
+      .addEventListener("click", () =>
+        this._handleImageClick({ link: this._link, text: this._name })
+      );
   }
 
   _handleLikeIcon() {
@@ -57,12 +61,10 @@ class Card {
     this._cardElement = null;
   }
 
-  _handlePreviewPicture(cardData) {
-    modalImageEl.src = this._link;
-    imageModal.alt = this._name;
-    modalCaption.textContent = this._name;
-    openPopup(imageModal);
-  }
+  // _handlePreviewPicture(cardData) {
+  //   modalImageEl.src = this._link;
+  //   imageModal.alt = this._name;
+  //   modalCaption.textContent = this._name;
+  //   openPopup(imageModal);
+  // }
 }
-
-export default Card;
