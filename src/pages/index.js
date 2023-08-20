@@ -7,9 +7,12 @@ import {
   closePopup,
   openPopup,
   handlePopupClose,
-  validationSettings,
 } from "../utils/utils.js";
-import { initialCards, selectors } from "../utils/constants.js";
+import {
+  initialCards,
+  validationSettings,
+  selectors,
+} from "../utils/constants.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
@@ -52,25 +55,30 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 
 // Instances of the Classes
 const selector = { popupSelector: selectors.previewPopup };
-const CardPreviewPopup = new PopupWithImage(selector);
-const SubmitProfileInfo = new UserInfo(
+const cardPreviewPopup = new PopupWithImage(selector);
+const submitProfileInfo = new UserInfo(
   ".profile__title",
   ".profile__description"
 );
 
-const CardSection = new Section(
+const renderCard = (card) => {
+  const cardEl = new Card(
+    {
+      data: card,
+      handleImageClick: (imgData) => {
+        cardPreviewPopup.open(imgData);
+      },
+    },
+    selectors.cardTemplate
+  );
+  return cardEl;
+};
+
+const cardSection = new Section(
   {
     renderer: (item) => {
-      const cardEl = new Card(
-        {
-          data: item,
-          handleImageClick: (imgData) => {
-            CardPreviewPopup.open(imgData);
-          },
-        },
-        selectors.cardTemplate
-      );
-      CardSection.addItems(cardEl.getView());
+      const cardEl = renderCard(item);
+      cardSection.addItem(cardEl.getView());
     },
   },
   selectors.cardSection
@@ -91,8 +99,8 @@ const editFormValidator = new FormValidator(
 const addFormValidator = new FormValidator(validationSettings, addCardModal);
 
 //Initialize all instances
-CardSection.renderItems(initialCards);
-CardPreviewPopup.setEventListeners();
+cardSection.renderItems(initialCards);
+cardPreviewPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
 editFormValidator.enableValidation();
@@ -104,7 +112,7 @@ addFormValidator.enableValidation();
 
 function handleProfileEditSubmit(obj) {
   const { title, description } = obj;
-  SubmitProfileInfo.setUserInfo(title, description);
+  submitProfileInfo.setUserInfo(title, description);
   editPopup.close();
 }
 
@@ -113,21 +121,14 @@ function handlePhotoAddSubmit(obj) {
     name: obj.title,
     link: obj.url,
   };
-  const cardEl = new Card(
-    {
-      data: cardData,
-      handleImageClick: (imgData) => {
-        CardPreviewPopup.open(imgData);
-      },
-    },
-    selectors.cardTemplate
-  );
-  CardSection.addItems(cardEl.getView());
+  const cardEl = renderCard(item);
+  cardSection.addItem(cardEl.getView());
 }
 
 function fillProfileForm() {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  const { name, description } = submitProfileInfo.getUserInfo();
+  profileTitleInput.value = name;
+  profileDescriptionInput.value = description;
 }
 
 function openEditProfileModal() {
