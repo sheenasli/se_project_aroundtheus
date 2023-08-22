@@ -56,10 +56,7 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 // Instances of the Classes
 const selector = { popupSelector: selectors.previewPopup };
 const cardPreviewPopup = new PopupWithImage(selector);
-const submitProfileInfo = new UserInfo(
-  ".profile__title",
-  ".profile__description"
-);
+const userInfo = new UserInfo(".profile__title", ".profile__description");
 
 const renderCard = (card) => {
   const cardEl = new Card(
@@ -71,7 +68,7 @@ const renderCard = (card) => {
     },
     selectors.cardTemplate
   );
-  return cardEl;
+  return cardEl.getView();
 };
 
 const cardSection = new Section(
@@ -112,7 +109,7 @@ addFormValidator.enableValidation();
 
 function handleProfileEditSubmit(obj) {
   const { title, description } = obj;
-  submitProfileInfo.setUserInfo(title, description);
+  userInfo.setUserInfo(title, description);
   editPopup.close();
 }
 
@@ -126,7 +123,7 @@ function handlePhotoAddSubmit(obj) {
 }
 
 function fillProfileForm() {
-  const { name, description } = submitProfileInfo.getUserInfo();
+  const { name, description } = userInfo.getUserInfo();
   profileTitleInput.value = name;
   profileDescriptionInput.value = description;
 }

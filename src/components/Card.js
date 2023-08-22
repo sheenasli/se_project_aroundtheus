@@ -1,8 +1,3 @@
-const imageModal = document.querySelector("#image-popup");
-const modalImageEl = imageModal.querySelector(".modal__image");
-const modalCaption = imageModal.querySelector(".modal__caption");
-const cardCaption = document.querySelector(".card__title");
-
 export default class Card {
   constructor({ data, handleImageClick }, cardSelector) {
     this._name = data.name;
