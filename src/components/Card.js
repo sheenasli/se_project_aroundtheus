@@ -21,7 +21,7 @@ export default class Card {
     this._cardElement.querySelector(".card__image").src = this._link;
     this._cardElement.querySelector(
       ".card__image"
-    ).alt = `Photo of {this._name}`;
+    ).alt = `Photo of ${this._name}`;
 
     this._cardCaption = this._cardElement.querySelector(".card__title");
     this._likeButton = this._cardElement.querySelector(".card__like-button");
@@ -57,11 +57,4 @@ export default class Card {
     this._cardElement.remove();
     this._cardElement = null;
   }
-
-  // _handlePreviewPicture(cardData) {
-  //   modalImageEl.src = this._link;
-  //   imageModal.alt = this._name;
-  //   modalCaption.textContent = this._name;
-  //   openPopup(imageModal);
-  // }
 }
