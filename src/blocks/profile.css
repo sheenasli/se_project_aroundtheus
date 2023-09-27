@@ -76,6 +76,10 @@
   background-position: center;
   margin-right: 24px;
 }
+
+/* hover effect. edit icon and opacity. z index?
+overlap button on image */
+
 @media screen and (max-width: 480px) {
   .profile {
     flex-direction: column;

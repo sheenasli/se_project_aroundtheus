@@ -71,12 +71,13 @@ const confirmDeleteModal = new PopupWithConfirmation(
       });
   }
 );
+confirmDeleteModal.setEventListeners();
 
 const renderCard = (card) => {
   const cardEl = new Card(
     {
       data: card,
-      userID,
+      //this._userID,//
       handleImageClick: (imgData) => {
         cardPreviewPopup.open(imgData);
       },
@@ -131,11 +132,11 @@ addFormValidator.enableValidation();
 function handleDeleteCardClick() {
   confirmDeleteModal.open();
   confirmDeleteModal.setSubmitAction(() => {
-    const id = card.getId();
+    const id = this.getId();
     api
-      .removeCard(data._id)
+      .removeCard(id)
       .then((res) => {
-        card.handleDeleteCardClick();
+        this.handleDeleteCard();
       })
       .catch((err) => {
         console.error(err);
@@ -143,15 +144,16 @@ function handleDeleteCardClick() {
   });
 }
 
-function handleCardLikeClick(cardID) {
-  if (this._isLiked) {
-    api.removeCardLike(cardId).then(() => {
-      this.setLike(false);
+function handleCardLikeClick(cardId, isLiked) {
+  console.log(1);
+  if (isLiked) {
+    console.log(2);
+    api.addCardLike(cardId).then(() => {
+      console.log("RESPONSE 2");
     });
   } else {
-    api.addCardLike(cardId).then(() => {
-      this.setLike(true);
-    });
+    console.log(3);
+    api.removeCardLike(cardId).then(() => console.log("RESPONSE 3"));
   }
 }
 
@@ -165,12 +167,7 @@ function handleProfileEditSubmit(obj) {
 }
 
 function handlePhotoAddSubmit(obj) {
-  console.log(obj);
-  api.addCard(obj).then((obj) => {
-    const cardData = {
-      title,
-      url,
-    };
+  api.addCard(obj).then((cardData) => {
     const cardEl = renderCard(cardData);
     cardSection.addItem(cardEl);
   });

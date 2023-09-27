@@ -39,8 +39,8 @@ export default class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: name,
-        url: link,
+        name,
+        link,
       }),
     })
       .then((res) =>
@@ -83,7 +83,7 @@ export default class Api {
       });
   }
 
-  removeCardLike() {
+  removeCardLike(cardID) {
     return fetch(`${this._baseUrl}/cards/${cardID}/likes`, {
       method: "DELETE",
       headers: {

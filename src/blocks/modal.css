@@ -32,6 +32,11 @@
   flex-direction: column;
 }
 
+.modal__container_type_confirmation {
+  width: 430px;
+  height: 181px;
+}
+
 .modal__container_type_image {
   background-color: transparent;
   display: flex;
@@ -142,6 +147,9 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
+}
+
+.modal__button_type_confirmation {
 }
 
 .modal__button:hover:not(:disabled) {
