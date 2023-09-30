@@ -24,7 +24,9 @@ const cardData = {
 /*                      Elements                    */
 /*--------------------------------------------------*/
 const profileEditButton = document.querySelector("#profile-edit-button");
+const avatarEditButton = document.querySelector(".profile__avatar-container");
 const profileEditModal = document.querySelector("#profile-edit-modal");
+const avatarEditModal = document.querySelector("#avatar-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
 const imageModal = document.querySelector("#image-popup");
 const profileTitle = document.querySelector(".profile__title");
@@ -34,6 +36,7 @@ const profileDescriptionInput = document.querySelector(
   "#profile-decription-input"
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileAvatar = document.querySelector(".profile__image");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 const addNewCardButton = document.querySelector(".profile__add-button");
@@ -47,7 +50,17 @@ const api = new Api({
   },
 });
 
-// api.removeCard().then((res) => console.log(res));
+const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (avatar) => {
+  api
+    .updateAvatar({ avatar })
+    .then(() => {
+      profileAvatar.src = avatar;
+      editAvatarPopup.close();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
 
 const selector = { popupSelector: selectors.previewPopup };
 const cardPreviewPopup = new PopupWithImage(selector);
@@ -114,6 +127,11 @@ const editFormValidator = new FormValidator(
 );
 const addFormValidator = new FormValidator(validationSettings, addCardModal);
 
+const editAvatarValidator = new FormValidator(
+  validationSettings,
+  avatarEditModal
+);
+
 //Initialize all instances
 api.getInitialCards().then((cards) => {
   cardSection.renderItems(cards);
@@ -122,8 +140,10 @@ api.getInitialCards().then((cards) => {
 cardPreviewPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+editAvatarValidator.enableValidation();
 
 /*--------------------------------------------------*/
 /*                      Functions                   */
@@ -145,15 +165,14 @@ function handleDeleteCardClick() {
 }
 
 function handleCardLikeClick(cardId, isLiked) {
-  console.log(1);
   if (isLiked) {
-    console.log(2);
-    api.addCardLike(cardId).then(() => {
-      console.log("RESPONSE 2");
-    });
+    api
+      .removeCardLike(cardId)
+      .then((cardData) => this.setLike(cardData.isLiked));
   } else {
-    console.log(3);
-    api.removeCardLike(cardId).then(() => console.log("RESPONSE 3"));
+    api.addCardLike(cardId).then((cardData) => {
+      this.setLike(cardData.isLiked);
+    });
   }
 }
 
@@ -192,4 +211,9 @@ profileEditButton.addEventListener("click", openEditProfileModal);
 addNewCardButton.addEventListener("click", () => {
   addFormValidator.toggleButtonState();
   addPopup.open();
+});
+
+avatarEditButton.addEventListener("click", () => {
+  editAvatarValidator.toggleButtonState();
+  editAvatarPopup.open();
 });

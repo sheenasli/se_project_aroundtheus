@@ -28,8 +28,24 @@ export default class Api {
       });
   }
 
-  //PATCH https://around-api.en.tripleten-services.com/v1/users/me/avatar
-  //setUserAvatar() {}
+  updateAvatar({ avatar }) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar,
+      }),
+    })
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+      )
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   addCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {

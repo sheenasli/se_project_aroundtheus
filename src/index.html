@@ -17,11 +17,15 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Avatar"
-            class="profile__image"
-          />
+          <div class="profile__avatar-container">
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="Avatar"
+              class="profile__image"
+            />
+            <button class="profile__image-edit"></button>
+          </div>
+
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -46,7 +50,7 @@
         <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
       </footer>
     </div>
-    <!-- Edit Modal -->
+    <!-- Profile Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button
@@ -94,6 +98,32 @@
       </div>
     </div>
 
+    <!-- Avatar Edit Modal -->
+    <div class="modal" id="avatar-edit-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h3 class="modal__heading">Change profile picture</h3>
+        <form class="modal__form" id="" edit-avatar-form>
+          <label class="modal__label">
+            <input
+              class="modal__input modal__input_type_url"
+              type="url"
+              name="link"
+              placeholder="Image URL"
+              id="place-url-input"
+              required
+            />
+            <span class="modal__error" id="place-url-input-error"
+              >The "Image URL" field must contain a URL.</span
+            >
+          </label>
+          <button class="modal__button" type="submit" aria-label="save">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- Confirm Delete Modal -->
     <div class="modal" id="confirm-delete-modal">
       <div class="modal__container modal__container_type_confirmation">
@@ -105,7 +135,8 @@
         <h3 class="modal__heading">Are you sure?</h3>
         <form class="modal__form">
           <button
-            class="modal__button modal__button_type_confirmation"
+            class="modal__button"
+            id="delete__button"
             type="submit"
             aria-label="save"
           >
