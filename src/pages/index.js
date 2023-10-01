@@ -54,9 +54,9 @@ const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (cardData) => {
   editAvatarPopup.renderLoading(true);
   api
     .updateAvatar(cardData)
-    .then(() => {
-      userInfo.setUserInfo();
-      // line above need to have a link?
+    .then((res) => {
+      userInfo.setAvatar(res.avatar);
+
       editAvatarPopup.close();
     })
     .catch((error) => {
@@ -69,7 +69,11 @@ const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (cardData) => {
 
 const selector = { popupSelector: selectors.previewPopup };
 const cardPreviewPopup = new PopupWithImage(selector);
-const userInfo = new UserInfo(".profile__title", ".profile__description");
+const userInfo = new UserInfo(
+  ".profile__title",
+  ".profile__description",
+  ".profile__image"
+);
 
 api.getUserInfo().then((userData) => {
   console.log(userData);
