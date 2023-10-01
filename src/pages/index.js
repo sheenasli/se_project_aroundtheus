@@ -50,15 +50,20 @@ const api = new Api({
   },
 });
 
-const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (avatar) => {
+const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (cardData) => {
+  editAvatarPopup.renderLoading(true);
   api
-    .updateAvatar({ avatar })
+    .updateAvatar(cardData)
     .then(() => {
-      profileAvatar.src = avatar;
+      userInfo.setUserInfo();
+      // line above need to have a link?
       editAvatarPopup.close();
     })
     .catch((error) => {
       console.error(error);
+      // .finally(() => {
+      //   editAvatarPopup.renderLoading(false);
+      // });
     });
 });
 
