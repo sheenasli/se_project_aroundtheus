@@ -51,7 +51,8 @@ const api = new Api({
 });
 
 const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (cardData) => {
-  editAvatarPopup.renderLoading(true);
+  editAvatarPopup.renderLoading(true, "Saving...");
+
   api
     .updateAvatar(cardData)
     .then((res) => {
@@ -59,11 +60,11 @@ const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (cardData) => {
 
       editAvatarPopup.close();
     })
-    .catch((error) => {
-      console.error(error);
-      // .finally(() => {
-      //   editAvatarPopup.renderLoading(false);
-      // });
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      editAvatarPopup.renderLoading(false);
     });
 });
 
@@ -83,13 +84,18 @@ api.getUserInfo().then((userData) => {
 const confirmDeleteModal = new PopupWithConfirmation(
   "#confirm-delete-modal",
   (id) => {
+    confirmDeleteModal.renderLoading(true, "Deleting...");
+
     api
       .removeCard(id)
       .then(() => {
         confirmDeleteModal.close();
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        confirmDeleteModal.renderLoading(false);
       });
   }
 );
@@ -162,6 +168,7 @@ function handleDeleteCardClick() {
   confirmDeleteModal.open();
   confirmDeleteModal.setSubmitAction(() => {
     const id = this.getId();
+
     api
       .removeCard(id)
       .then((res) => {
@@ -186,19 +193,31 @@ function handleCardLikeClick(cardId, isLiked) {
 }
 
 function handleProfileEditSubmit(obj) {
-  api.updateProfileInfo(obj).then((res) => {
-    const { name, about } = res;
-    userInfo.setUserInfo(name, about);
-    editPopup.close();
-  });
-  console.log(obj);
+  editPopup.renderLoading(true, "Saving...");
+  api
+    .updateProfileInfo(obj)
+    .then((res) => {
+      const { name, about } = res;
+      userInfo.setUserInfo(name, about);
+      editPopup.close();
+    })
+    // console.log(obj)
+    .finally(() => {
+      editPopup.renderLoading(false);
+    });
 }
 
 function handlePhotoAddSubmit(obj) {
-  api.addCard(obj).then((cardData) => {
-    const cardEl = renderCard(cardData);
-    cardSection.addItem(cardEl);
-  });
+  addPopup.renderLoading(true, "Saving...");
+  api
+    .addCard(obj)
+    .then((cardData) => {
+      const cardEl = renderCard(cardData);
+      cardSection.addItem(cardEl);
+    })
+    .finally(() => {
+      addPopup.renderLoading(false);
+    });
 }
 
 function fillProfileForm() {
