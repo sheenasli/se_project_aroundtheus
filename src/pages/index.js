@@ -52,12 +52,10 @@ const api = new Api({
 
 const editAvatarPopup = new PopupWithForm("#avatar-edit-modal", (cardData) => {
   editAvatarPopup.renderLoading(true, "Saving...");
-
   api
     .updateAvatar(cardData)
     .then((res) => {
       userInfo.setAvatar(res.avatar);
-
       editAvatarPopup.close();
     })
     .catch((err) => {
@@ -76,26 +74,28 @@ const userInfo = new UserInfo(
   ".profile__image"
 );
 
-api.getUserInfo().then((userData) => {
-  console.log(userData);
-  userInfo.setUserInfo(userData.name, userData.about);
-});
+api
+  .getUserInfo()
+  .then((userData) => {
+    console.log(userData);
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setAvatar(userData.avatar);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 const confirmDeleteModal = new PopupWithConfirmation(
   "#confirm-delete-modal",
-  (id) => {
-    confirmDeleteModal.renderLoading(true, "Deleting...");
-
+  () => {
     api
       .removeCard(id)
       .then(() => {
+        console.log("testing");
         confirmDeleteModal.close();
       })
       .catch((err) => {
         console.error(err);
-      })
-      .finally(() => {
-        confirmDeleteModal.renderLoading(false);
       });
   }
 );
@@ -105,7 +105,6 @@ const renderCard = (card) => {
   const cardEl = new Card(
     {
       data: card,
-      //this._userID,//
       handleImageClick: (imgData) => {
         cardPreviewPopup.open(imgData);
       },
@@ -148,9 +147,14 @@ const editAvatarValidator = new FormValidator(
 );
 
 //Initialize all instances
-api.getInitialCards().then((cards) => {
-  cardSection.renderItems(cards);
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    cardSection.renderItems(cards);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 cardPreviewPopup.setEventListeners();
 editPopup.setEventListeners();
@@ -164,15 +168,14 @@ editAvatarValidator.enableValidation();
 /*                      Functions                   */
 /*--------------------------------------------------*/
 
-function handleDeleteCardClick() {
+function handleDeleteCardClick(card) {
   confirmDeleteModal.open();
   confirmDeleteModal.setSubmitAction(() => {
-    const id = this.getId();
-
+    const id = card.getId();
     api
       .removeCard(id)
       .then((res) => {
-        this.handleDeleteCard();
+        card.handleDeleteCard();
       })
       .catch((err) => {
         console.error(err);
@@ -180,15 +183,21 @@ function handleDeleteCardClick() {
   });
 }
 
-function handleCardLikeClick(cardId, isLiked) {
-  if (isLiked) {
+function handleCardLikeClick(card) {
+  if (card.getIsLiked()) {
     api
-      .removeCardLike(cardId)
-      .then((cardData) => this.setLike(cardData.isLiked));
+      .removeCardLike(card.getId())
+
+      .then((cardData) => card.setLike(cardData.isLiked));
   } else {
-    api.addCardLike(cardId).then((cardData) => {
-      this.setLike(cardData.isLiked);
-    });
+    api
+      .addCardLike(card.getId())
+      .then((cardData) => {
+        card.setLike(cardData.isLiked);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 }
 
@@ -201,7 +210,9 @@ function handleProfileEditSubmit(obj) {
       userInfo.setUserInfo(name, about);
       editPopup.close();
     })
-    // console.log(obj)
+    .catch((err) => {
+      console.error(err);
+    })
     .finally(() => {
       editPopup.renderLoading(false);
     });
@@ -214,6 +225,9 @@ function handlePhotoAddSubmit(obj) {
     .then((cardData) => {
       const cardEl = renderCard(cardData);
       cardSection.addItem(cardEl);
+    })
+    .catch((err) => {
+      console.error(err);
     })
     .finally(() => {
       addPopup.renderLoading(false);

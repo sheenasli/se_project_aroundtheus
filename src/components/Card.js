@@ -30,6 +30,10 @@ export default class Card {
     return this._id;
   }
 
+  getIsLiked() {
+    return this._isLiked;
+  }
+
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
@@ -57,13 +61,13 @@ export default class Card {
   _setEventListeners() {
     //".card__like-button"
     this._likeButton.addEventListener("click", () => {
-      this._handleCardLikeClick(this._id, this._isLiked);
+      this._handleCardLikeClick(this);
     });
 
     //".card__delete-button"
     this._cardElement
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeleteCardClick());
+      .addEventListener("click", () => this._handleDeleteCardClick(this));
 
     //"#image-popup"
     this._cardElement
