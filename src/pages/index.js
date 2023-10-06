@@ -87,19 +87,8 @@ api
 
 const confirmDeleteModal = new PopupWithConfirmation(
   "#confirm-delete-modal",
-  () => {
-    api
-      .removeCard(id)
-      .then(() => {
-        console.log("testing");
-        confirmDeleteModal.close();
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+  () => {}
 );
-confirmDeleteModal.setEventListeners();
 
 const renderCard = (card) => {
   const cardEl = new Card(
@@ -159,6 +148,7 @@ api
 cardPreviewPopup.setEventListeners();
 editPopup.setEventListeners();
 addPopup.setEventListeners();
+confirmDeleteModal.setEventListeners();
 editAvatarPopup.setEventListeners();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
@@ -176,6 +166,7 @@ function handleDeleteCardClick(card) {
       .removeCard(id)
       .then((res) => {
         card.handleDeleteCard();
+        confirmDeleteModal.close();
       })
       .catch((err) => {
         console.error(err);
@@ -187,8 +178,10 @@ function handleCardLikeClick(card) {
   if (card.getIsLiked()) {
     api
       .removeCardLike(card.getId())
-
-      .then((cardData) => card.setLike(cardData.isLiked));
+      .then((cardData) => card.setLike(cardData.isLiked))
+      .catch((err) => {
+        console.error(err);
+      });
   } else {
     api
       .addCardLike(card.getId())
@@ -225,6 +218,7 @@ function handlePhotoAddSubmit(obj) {
     .then((cardData) => {
       const cardEl = renderCard(cardData);
       cardSection.addItem(cardEl);
+      addPopup.close();
     })
     .catch((err) => {
       console.error(err);
