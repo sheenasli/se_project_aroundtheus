@@ -22,5 +22,6 @@ This is the third project of the Web Development program at TripleTen. It was cr
 
   [Around the U.S. link](https://sheenasli.github.io/se_project_aroundtheus/)
 
-  ## Demo
-  https://www.loom.com/share/1d92db3b58d7429e95c7a5cc693a5dc8?sid=6d0c214b-354f-41cc-8d56-6c2e7ca9fd9c
+
+## Demo
+https://www.loom.com/share/1d92db3b58d7429e95c7a5cc693a5dc8?sid=6d0c214b-354f-41cc-8d56-6c2e7ca9fd9c
